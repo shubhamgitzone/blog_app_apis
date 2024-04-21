@@ -2,6 +2,7 @@ package com.shubham.blog.services;
 
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepo userRepo;
+	
+	@Autowired
+	private ModelMapper modelMapper;
 
 	@Override
 	public UserDTO createUser(UserDTO userDto) {
@@ -60,23 +64,21 @@ public class UserServiceImpl implements UserService {
 	}
 
 	private User dtoToUser(UserDTO userDto) {
-		User user = new User();
-//		user.setId(userDto.getId());
-		user.setAbout(userDto.getAbout());
-		user.setEmail(userDto.getEmail());
-		user.setName(userDto.getName());
-		user.setPassword(userDto.getPassword());
+		
+		User user = this.modelMapper.map(userDto, User.class);
+		
+//		User user = new User();
+////		user.setId(userDto.getId());
+//		user.setAbout(userDto.getAbout());
+//		user.setEmail(userDto.getEmail());
+//		user.setName(userDto.getName());
+//		user.setPassword(userDto.getPassword());
 		return user;
 	}
 
 	private UserDTO userToDto(User user) {
 
-		UserDTO userDto = new UserDTO();
-		userDto.setId(user.getId());
-		userDto.setAbout(user.getAbout());
-		userDto.setEmail(user.getEmail());
-		userDto.setName(user.getName());
-		userDto.setPassword(user.getPassword());
+		UserDTO userDto = this.modelMapper.map(user, UserDTO.class);
 		return userDto;
 	}
 

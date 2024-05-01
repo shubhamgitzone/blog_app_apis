@@ -1,4 +1,4 @@
-package com.shubham.blog.services;
+package com.shubham.blog.services.impl;
 
 import java.util.List;
 
@@ -10,6 +10,7 @@ import com.shubham.blog.entities.User;
 import com.shubham.blog.exceptions.ResourceNotFoundException;
 import com.shubham.blog.payloads.UserDTO;
 import com.shubham.blog.repositories.UserRepo;
+import com.shubham.blog.services.UserService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -64,11 +65,14 @@ public class UserServiceImpl implements UserService {
 	}
 
 	private User dtoToUser(UserDTO userDto) {
+
+//		using modelMapper instance to call & obtain model from dto
 		
 		User user = this.modelMapper.map(userDto, User.class);
 		
+//		conventional conversion of dto to model
+		
 //		User user = new User();
-////		user.setId(userDto.getId());
 //		user.setAbout(userDto.getAbout());
 //		user.setEmail(userDto.getEmail());
 //		user.setName(userDto.getName());

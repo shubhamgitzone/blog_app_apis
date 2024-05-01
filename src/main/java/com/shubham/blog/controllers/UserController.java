@@ -18,6 +18,7 @@ import com.shubham.blog.payloads.ApiResponse;
 import com.shubham.blog.payloads.UserDTO;
 import com.shubham.blog.services.UserService;
 
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
@@ -29,13 +30,13 @@ public class UserController {
 	private UserService userService;
 
 	@PostMapping("/")
-	public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDto) {
+	public ResponseEntity<UserDTO> createUser(@Valid @RequestBody UserDTO userDto) {
 		UserDTO createUserDto = this.userService.createUser(userDto);
 		return new ResponseEntity<UserDTO>(createUserDto, HttpStatus.CREATED);
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO userDto, @PathVariable Integer id) {
+	public ResponseEntity<UserDTO> updateUser(@Valid @RequestBody UserDTO userDto, @PathVariable Integer id) {
 		UserDTO updatedUserDto = this.userService.updateUser(userDto, id);
 		return ResponseEntity.ok(updatedUserDto);
 	}

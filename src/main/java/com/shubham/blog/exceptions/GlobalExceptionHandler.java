@@ -34,4 +34,12 @@ public class GlobalExceptionHandler {
 
 		return new ResponseEntity<>(errorMap, HttpStatus.BAD_REQUEST);
 	}
+	
+	
+	@ExceptionHandler(StringIndexOutOfBoundsException.class)
+	public ResponseEntity<ApiResponse> stringIndexOutOfBoundsExceptionHandler(ResourceNotFoundException ex) {
+		String message = ex.getMessage();
+		ApiResponse apiResponse = new ApiResponse(message, false);
+		return new ResponseEntity<>(apiResponse, HttpStatus.NOT_FOUND);
+	}
 }
